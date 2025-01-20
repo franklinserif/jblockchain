@@ -2,7 +2,7 @@ package blockchain;
 
 import java.util.Date;
 
-public class Block{
+public class Block {
     public String hash;
     public String previousHash;
     public String data; //our data will be a simple message.
@@ -11,14 +11,14 @@ public class Block{
 
 
     // Block Constructor
-    public Block(String data, String  previousHash){
+    public Block(String data, String previousHash) {
         this.data = data;
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
         this.hash = calculateHash();
     }
 
-    public String calculateHash(){
+    public String calculateHash() {
         return StringUtil.applySha256(
                 previousHash + timeStamp + nonce + data
         );
@@ -27,7 +27,7 @@ public class Block{
     public void mineBlock(int difficulty) {
         // Create a string with difficulty 0
         String target = new String(new char[difficulty]).replace('\0', '0');
-        while(!hash.substring(0, difficulty).equals((target))){
+        while (!hash.substring(0, difficulty).equals((target))) {
             nonce++;
             hash = calculateHash();
         }
